@@ -3,7 +3,7 @@ import SwiftUI
 // Reusable app background color to match splash
 
 struct MainView: View {
-    @State private var selectedTab: Tab = .home
+  
 
     enum Tab: Hashable {
         case home
@@ -18,7 +18,8 @@ struct MainView: View {
             ZStack {
                 LinearGradient.appBackground
                     .ignoresSafeArea()
-                TabView(selection: $selectedTab) {
+                TabView {
+
                     HomeView()
                         .tabItem {
                             Image(systemName: "target")
@@ -26,22 +27,21 @@ struct MainView: View {
                         }
                         .tag(Tab.home)
 
-                   
                         .tag(Tab.study)
-                    DecksView()
 
+                    DecksView()
                         .tabItem {
                             Image(systemName: "square.stack.3d.up")
                             Text("Decks")
                         }
                         .tag(Tab.decks)
-                    
+
                     SearchView()
                         .tabItem {
                             Image(systemName: "magnifyingglass")
                             Text("Search")
                         }
-                   
+
                 }
 
                 .background(Color.clear)
