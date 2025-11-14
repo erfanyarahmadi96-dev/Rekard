@@ -33,6 +33,12 @@ struct MainView: View {
                         }
                         .tag(Tab.decks)
 
+                    SettingView()
+                        .tabItem {
+                            Image(systemName: "gear")
+                            Text("Settings")
+                        }
+                    
                     SearchView()
                         .tabItem {
                             Image(systemName: "magnifyingglass")
