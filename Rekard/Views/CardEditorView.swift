@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CardEditorView: View {
-    @Binding var card: Card? // nil = creating new card
+    @Binding var card: Card?  // nil = creating new card
     let deckID: UUID
 
     var onSave: (Card) -> Void
@@ -41,13 +41,25 @@ struct CardEditorView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(card == nil ? "Create" : "Save") {
-                        let newCard = Card(id: card?.id ?? UUID(),
-                                           question: question.trimmingCharacters(in: .whitespacesAndNewlines),
-                                           answer: answer.trimmingCharacters(in: .whitespacesAndNewlines))
+                        let newCard = Card(
+                            id: card?.id ?? UUID(),
+                            question: question.trimmingCharacters(
+                                in: .whitespacesAndNewlines
+                            ),
+                            answer: answer.trimmingCharacters(
+                                in: .whitespacesAndNewlines
+                            )
+                        )
                         onSave(newCard)
                         dismiss()
                     }
-                    .disabled(question.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || answer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .disabled(
+                        question.trimmingCharacters(in: .whitespacesAndNewlines)
+                            .isEmpty
+                            || answer.trimmingCharacters(
+                                in: .whitespacesAndNewlines
+                            ).isEmpty
+                    )
                 }
             }
             .onAppear {

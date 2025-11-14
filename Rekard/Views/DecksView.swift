@@ -111,7 +111,7 @@ struct DeckCardView: View {
     let deck: Deck
     let index: Int
     let total: Int
-    
+
     var body: some View {
         let base = deck.color.swiftUIColor
         let darker = Color(
@@ -119,7 +119,7 @@ struct DeckCardView: View {
             green: max(deck.color.green - 0.08, 0),
             blue: max(deck.color.blue - 0.08, 0)
         )
-        
+
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 22)
                 .fill(
@@ -140,7 +140,7 @@ struct DeckCardView: View {
                     RoundedRectangle(cornerRadius: 22)
                         .stroke(Color.white.opacity(0.06), lineWidth: 1)
                 )
-            
+
             HStack(alignment: .center, spacing: 16) {
                 ZStack {
                     Circle()
@@ -160,12 +160,12 @@ struct DeckCardView: View {
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.9))
                 }
-                
+
                 Spacer()
-                
+
             }
             .padding(.horizontal, 22)
         }
-        
+
     }
 }

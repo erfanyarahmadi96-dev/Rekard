@@ -44,7 +44,12 @@ struct StudySessionView: View {
                         StudyCardsView(deck: deck, box: 1)
                             .environmentObject(store)
                     } label: {
-                        boxCard(title: "Box 1 — Don't Know", subtitle: "\(store.cards(inDeck: deck.id, box: 1).count) cards", color: softRed)
+                        boxCard(
+                            title: "Box 1 — Don't Know",
+                            subtitle:
+                                "\(store.cards(inDeck: deck.id, box: 1).count) cards",
+                            color: softRed
+                        )
                     }
 
                     // Box 2 — Kind of Know
@@ -52,7 +57,12 @@ struct StudySessionView: View {
                         StudyCardsView(deck: deck, box: 2)
                             .environmentObject(store)
                     } label: {
-                        boxCard(title: "Box 2 — Kind of Know", subtitle: "\(store.cards(inDeck: deck.id, box: 2).count) cards", color: softYellow)
+                        boxCard(
+                            title: "Box 2 — Kind of Know",
+                            subtitle:
+                                "\(store.cards(inDeck: deck.id, box: 2).count) cards",
+                            color: softYellow
+                        )
                     }
 
                     // Box 3 — Know
@@ -60,7 +70,12 @@ struct StudySessionView: View {
                         StudyCardsView(deck: deck, box: 3)
                             .environmentObject(store)
                     } label: {
-                        boxCard(title: "Box 3 — Know", subtitle: "\(store.cards(inDeck: deck.id, box: 3).count) cards", color: softGreen)
+                        boxCard(
+                            title: "Box 3 — Know",
+                            subtitle:
+                                "\(store.cards(inDeck: deck.id, box: 3).count) cards",
+                            color: softGreen
+                        )
                     }
                 }
                 .padding(.horizontal)
@@ -72,7 +87,9 @@ struct StudySessionView: View {
     }
 
     @ViewBuilder
-    private func boxCard(title: String, subtitle: String, color: Color) -> some View {
+    private func boxCard(title: String, subtitle: String, color: Color)
+        -> some View
+    {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 Text(title)
@@ -87,7 +104,15 @@ struct StudySessionView: View {
                 .foregroundColor(.secondary)
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 14).fill(LinearGradient(colors: [color.opacity(0.95), color.opacity(0.85)], startPoint: .topLeading, endPoint: .bottomTrailing)))
+        .background(
+            RoundedRectangle(cornerRadius: 14).fill(
+                LinearGradient(
+                    colors: [color.opacity(0.95), color.opacity(0.85)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+        )
         .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 6)
     }
 }

@@ -5,8 +5,8 @@
 //  Created by Erfan Yarahmadi on 11/11/25.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class DeckStore: ObservableObject {
     @Published private(set) var decks: [Deck] = []
@@ -25,7 +25,9 @@ final class DeckStore: ObservableObject {
     }
 
     func update(_ deck: Deck) {
-        guard let idx = decks.firstIndex(where: { $0.id == deck.id }) else { return }
+        guard let idx = decks.firstIndex(where: { $0.id == deck.id }) else {
+            return
+        }
         decks[idx] = deck
         save()
     }
@@ -37,20 +39,28 @@ final class DeckStore: ObservableObject {
 
     // MARK: Card CRUD (within a deck)
     func addCard(_ card: Card, toDeck deckID: UUID) {
-        guard let idx = decks.firstIndex(where: { $0.id == deckID }) else { return }
+        guard let idx = decks.firstIndex(where: { $0.id == deckID }) else {
+            return
+        }
         decks[idx].cards.insert(card, at: 0)
         save()
     }
 
     func updateCard(_ card: Card, inDeck deckID: UUID) {
-        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else { return }
-        guard let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == card.id }) else { return }
+        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else {
+            return
+        }
+        guard
+            let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == card.id })
+        else { return }
         decks[dIdx].cards[cIdx] = card
         save()
     }
 
     func removeCard(_ cardID: UUID, fromDeck deckID: UUID) {
-        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else { return }
+        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else {
+            return
+        }
         decks[dIdx].cards.removeAll { $0.id == cardID }
         save()
     }
@@ -59,8 +69,12 @@ final class DeckStore: ObservableObject {
 
     /// Promote card to next box (max 3) and update lastReviewed
     func promoteCard(_ cardID: UUID, inDeck deckID: UUID) {
-        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else { return }
-        guard let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == cardID }) else { return }
+        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else {
+            return
+        }
+        guard
+            let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == cardID })
+        else { return }
         var card = decks[dIdx].cards[cIdx]
         card.box = min(3, card.box + 1)
         card.lastReviewed = Date()
@@ -70,8 +84,12 @@ final class DeckStore: ObservableObject {
 
     /// Demote card to previous box (min 1) and update lastReviewed
     func demoteCard(_ cardID: UUID, inDeck deckID: UUID) {
-        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else { return }
-        guard let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == cardID }) else { return }
+        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else {
+            return
+        }
+        guard
+            let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == cardID })
+        else { return }
         var card = decks[dIdx].cards[cIdx]
         card.box = max(1, card.box - 1)
         card.lastReviewed = Date()
@@ -81,8 +99,12 @@ final class DeckStore: ObservableObject {
 
     /// Mark as seen but keep box same (useful if user wants to manually set lastReviewed)
     func markReviewed(_ cardID: UUID, inDeck deckID: UUID) {
-        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else { return }
-        guard let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == cardID }) else { return }
+        guard let dIdx = decks.firstIndex(where: { $0.id == deckID }) else {
+            return
+        }
+        guard
+            let cIdx = decks[dIdx].cards.firstIndex(where: { $0.id == cardID })
+        else { return }
         var card = decks[dIdx].cards[cIdx]
         card.lastReviewed = Date()
         decks[dIdx].cards[cIdx] = card
@@ -91,7 +113,9 @@ final class DeckStore: ObservableObject {
 
     // Get cards for a deck filtered by box (optionally apply ordering)
     func cards(inDeck deckID: UUID, box: Int) -> [Card] {
-        guard let deck = decks.first(where: { $0.id == deckID }) else { return [] }
+        guard let deck = decks.first(where: { $0.id == deckID }) else {
+            return []
+        }
         // Sort by lastReviewed ascending (older reviewed first) so due items show earlier
         return deck.cards.filter { $0.box == box }
             .sorted { (a, b) -> Bool in
@@ -115,7 +139,8 @@ final class DeckStore: ObservableObject {
     }
 
     private func load() {
-        guard let data = UserDefaults.standard.data(forKey: userDefaultsKey) else { return }
+        guard let data = UserDefaults.standard.data(forKey: userDefaultsKey)
+        else { return }
         do {
             decks = try JSONDecoder().decode([Deck].self, from: data)
         } catch {

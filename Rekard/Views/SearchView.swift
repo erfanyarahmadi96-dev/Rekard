@@ -10,8 +10,13 @@ struct SearchView: View {
             return store.decks
         } else {
             return store.decks.filter {
-                $0.name.localizedCaseInsensitiveContains(searchText) ||
-                $0.cards.contains { $0.question.localizedCaseInsensitiveContains(searchText) || $0.answer.localizedCaseInsensitiveContains(searchText) }
+                $0.name.localizedCaseInsensitiveContains(searchText)
+                    || $0.cards.contains {
+                        $0.question.localizedCaseInsensitiveContains(searchText)
+                            || $0.answer.localizedCaseInsensitiveContains(
+                                searchText
+                            )
+                    }
             }
         }
     }
@@ -22,7 +27,7 @@ struct SearchView: View {
                 LinearGradient.appBackground.ignoresSafeArea()
 
                 VStack(spacing: 16) {
-                    // MARK: - Search Bar
+                    //  Search Bar
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
@@ -31,7 +36,7 @@ struct SearchView: View {
                             .textFieldStyle(PlainTextFieldStyle())
                             .submitLabel(.done)
                             .toolbar {
-                                
+
                             }
 
                         if !searchText.isEmpty {
@@ -65,43 +70,64 @@ struct SearchView: View {
                                     } label: {
                                         HStack {
                                             Image(systemName: deck.icon)
-                                                .foregroundColor(deck.color.swiftUIColor)
+                                                .foregroundColor(
+                                                    deck.color.swiftUIColor
+                                                )
                                                 .frame(width: 36, height: 36)
                                             VStack(alignment: .leading) {
                                                 Text(deck.name)
                                                     .font(.headline)
-                                                Text("\(deck.cards.count) cards")
-                                                    .font(.subheadline)
-                                                    .foregroundColor(.secondary)
+                                                Text(
+                                                    "\(deck.cards.count) cards"
+                                                )
+                                                .font(.subheadline)
+                                                .foregroundColor(.secondary)
                                             }
                                             Spacer()
                                         }
                                         .padding()
-                                        .background(RoundedRectangle(cornerRadius: 14).fill(Color.white.opacity(0.4)))
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 14)
+                                                .fill(Color.white.opacity(0.4))
+                                        )
                                     }
                                     .buttonStyle(PlainButtonStyle())
 
                                     // CARD RESULTS inside the deck
-                                    ForEach(deck.cards.filter {
-                                        searchText.isEmpty ? true :
-                                        $0.question.localizedCaseInsensitiveContains(searchText) ||
-                                        $0.answer.localizedCaseInsensitiveContains(searchText)
-                                    }) { card in
+                                    ForEach(
+                                        deck.cards.filter {
+                                            searchText.isEmpty
+                                                ? true
+                                                : $0.question
+                                                    .localizedCaseInsensitiveContains(
+                                                        searchText
+                                                    )
+                                                    || $0.answer
+                                                        .localizedCaseInsensitiveContains(
+                                                            searchText
+                                                        )
+                                        }
+                                    ) { card in
                                         NavigationLink {
                                             CardsView(deck: deck)
                                                 .environmentObject(store)
                                         } label: {
                                             HStack {
-                                                Image(systemName: "rectangle.and.pencil.and.ellipsis")
-                                                    .foregroundColor(.blue)
-                                                    .frame(width: 36, height: 36)
+                                                Image(
+                                                    systemName:
+                                                        "rectangle.and.pencil.and.ellipsis"
+                                                )
+                                                .foregroundColor(.blue)
+                                                .frame(width: 36, height: 36)
                                                 VStack(alignment: .leading) {
                                                     Text(card.question)
                                                         .font(.subheadline)
                                                         .lineLimit(1)
                                                     Text(card.answer)
                                                         .font(.caption)
-                                                        .foregroundColor(.secondary)
+                                                        .foregroundColor(
+                                                            .secondary
+                                                        )
                                                         .lineLimit(1)
                                                 }
                                                 Spacer()

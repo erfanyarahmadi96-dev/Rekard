@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AAA2D79E2EC686F300FF66FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAA2D78F2EC686F300FF66FC /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		AAA2D78F2EC686F300FF66FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AACD17662EB9FD330033646B /* Rekard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rekard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -32,6 +37,7 @@
 		AACD175D2EB9FD330033646B = {
 			isa = PBXGroup;
 			children = (
+				AAA2D78F2EC686F300FF66FC /* Assets.xcassets */,
 				AACD17682EB9FD330033646B /* Rekard */,
 				AACD17672EB9FD330033646B /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA2D79E2EC686F300FF66FC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

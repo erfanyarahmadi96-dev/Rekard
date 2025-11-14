@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct DeckEditorView: View {
-    @Binding var deck: Deck? // nil = creating new deck
+    @Binding var deck: Deck?  // nil = creating new deck
     var onSave: (Deck) -> Void
     var onDelete: (Deck) -> Void
 
     // Local editable state
-    @State private var name: String = ""
+    @State private var name: String = "=== New Deck ==="
     @State private var icon: String = "book.fill"
     @State private var color: Color = Color(red: 0.85, green: 0.45, blue: 0.45)
     @State private var showIconPicker = false
@@ -14,11 +14,12 @@ struct DeckEditorView: View {
 
     // SF Symbols sample set (you can expand this array)
     private let icons = [
-        "book.fill","graduationcap.fill","brain.head.profile","lightbulb.fill",
-        "pencil.tip","square.stack.3d.up.fill","globe","music.note.list",
-        "wand.and.stars","leaf.fill","bolt.fill","paintbrush.fill",
-        "hammer.fill","folder.fill","film.fill","sportscourt",
-        "gamecontroller.fill","terminal.fill","heart.fill","star.fill"
+        "book.fill", "graduationcap.fill", "brain.head.profile",
+        "lightbulb.fill",
+        "pencil.tip", "square.stack.3d.up.fill", "globe", "music.note.list",
+        "wand.and.stars", "leaf.fill", "bolt.fill", "paintbrush.fill",
+        "hammer.fill", "folder.fill", "film.fill", "sportscourt",
+        "gamecontroller.fill", "terminal.fill", "heart.fill", "star.fill",
     ]
 
     var body: some View {
@@ -30,12 +31,20 @@ struct DeckEditorView: View {
                     VStack(spacing: 8) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 18)
-                                .fill(LinearGradient(colors: [color, color.opacity(0.85)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .fill(
+                                    LinearGradient(
+                                        colors: [color, color.opacity(0.85)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
                                 .frame(width: 150, height: 110)
                                 .shadow(radius: 8)
                                 .overlay(
                                     Image(systemName: icon)
-                                        .font(.system(size: 36, weight: .semibold))
+                                        .font(
+                                            .system(size: 36, weight: .semibold)
+                                        )
                                         .foregroundColor(.white)
                                 )
                         }
@@ -69,7 +78,11 @@ struct DeckEditorView: View {
                     }
 
                     Section("Color") {
-                        ColorPicker("Pick a color", selection: $color, supportsOpacity: false)
+                        ColorPicker(
+                            "Pick a color",
+                            selection: $color,
+                            supportsOpacity: false
+                        )
                     }
 
                     if let existing = deck {
@@ -105,19 +118,28 @@ struct DeckEditorView: View {
                     Button(deck == nil ? "Create" : "Save") {
                         let colorData = ColorData(color: color)
                         if var d = deck {
-                            d.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+                            d.name = name.trimmingCharacters(
+                                in: .whitespacesAndNewlines
+                            )
                             d.icon = icon
                             d.color = colorData
                             onSave(d)
                         } else {
-                            let newDeck = Deck(name: name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Untitled Deck" : name,
-                                               icon: icon,
-                                               color: colorData)
+                            let newDeck = Deck(
+                                name: name.trimmingCharacters(
+                                    in: .whitespacesAndNewlines
+                                ).isEmpty ? "Untitled Deck" : name,
+                                icon: icon,
+                                color: colorData
+                            )
                             onSave(newDeck)
                         }
                         dismiss()
                     }
-                    .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .disabled(
+                        name.trimmingCharacters(in: .whitespacesAndNewlines)
+                            .isEmpty
+                    )
                 }
             }
             .sheet(isPresented: $showIconPicker) {
@@ -126,7 +148,6 @@ struct DeckEditorView: View {
         }
     }
 }
-
 
 struct IconPickerView: View {
     @Binding var selectedIcon: String

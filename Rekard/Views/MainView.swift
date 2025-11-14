@@ -3,7 +3,6 @@ import SwiftUI
 // Reusable app background color to match splash
 
 struct MainView: View {
-  
 
     enum Tab: Hashable {
         case home
@@ -27,12 +26,10 @@ struct MainView: View {
                         }
                         .tag(Tab.home)
 
-                        .tag(Tab.study)
-
                     DecksView()
                         .tabItem {
                             Image(systemName: "square.stack.3d.up")
-                            Text("Decks")
+                            Text("Leitner Box")
                         }
                         .tag(Tab.decks)
 

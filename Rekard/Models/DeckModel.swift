@@ -29,15 +29,21 @@ struct ColorData: Codable, Equatable, Hashable {
 
     init(color: Color) {
         #if canImport(UIKit)
-        let ui = UIColor(color)
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-        ui.getRed(&r, green: &g, blue: &b, alpha: &a)
-        self.red = Double(r)
-        self.green = Double(g)
-        self.blue = Double(b)
-        self.opacity = Double(a)
+            let ui = UIColor(color)
+            var r: CGFloat = 0
+            var g: CGFloat = 0
+            var b: CGFloat = 0
+            var a: CGFloat = 0
+            ui.getRed(&r, green: &g, blue: &b, alpha: &a)
+            self.red = Double(r)
+            self.green = Double(g)
+            self.blue = Double(b)
+            self.opacity = Double(a)
         #else
-        self.red = 0.85; self.green = 0.45; self.blue = 0.45; self.opacity = 1.0
+            self.red = 0.85
+            self.green = 0.45
+            self.blue = 0.45
+            self.opacity = 1.0
         #endif
     }
 
@@ -54,7 +60,13 @@ struct Deck: Identifiable, Codable, Equatable, Hashable {
     var color: ColorData
     var cards: [Card] = []
 
-    init(id: UUID = UUID(), name: String, icon: String = "book.fill", color: ColorData, cards: [Card] = []) {
+    init(
+        id: UUID = UUID(),
+        name: String,
+        icon: String = "book.fill",
+        color: ColorData,
+        cards: [Card] = []
+    ) {
         self.id = id
         self.name = name
         self.icon = icon

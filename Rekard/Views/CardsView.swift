@@ -22,7 +22,6 @@ struct CardsView: View {
         ZStack {
             LinearGradient.appBackground.ignoresSafeArea()
 
-
             VStack {
                 // Header preview
                 HStack {
@@ -180,7 +179,6 @@ struct FlipCardView: View {
                     .padding()
                 )
                 .opacity(isFront ? 1 : 0)
-               
 
             // Back side
             RoundedRectangle(cornerRadius: 12)
@@ -202,6 +200,9 @@ struct FlipCardView: View {
                 )  // ✅ fix
         }
         .frame(height: 200)
-        .animation(.spring(response: 0.75, dampingFraction: 0.75), value: isFront)
+        .animation(
+            .spring(response: 0.75, dampingFraction: 0.75),
+            value: isFront
+        )
     }
 }

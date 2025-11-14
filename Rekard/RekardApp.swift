@@ -8,7 +8,7 @@ struct RekardApp: App {
     var body: some Scene {
         WindowGroup {
             // Inject the environment object for the whole app
-            RootView()
+            MainView()
                 .environmentObject(store)
         }
     }
