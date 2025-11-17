@@ -9,10 +9,6 @@ import SwiftUI
 
 struct SettingView: View {
     @State private var notificationsEnabled: Bool = true
-    @State private var hapticsEnabled: Bool = true
-    @State private var darkMode: Bool = false
-    @State private var studyReminders: Bool = false
-    @State private var dailyGoal: Int = 20
 
     private var appVersion: String {
         let version =
@@ -32,70 +28,7 @@ struct SettingView: View {
             List {
 
                 Section(
-                    header: Text("Study"),
-                    footer: Text(
-                        "Reminders help you stay consistent with your Leitner boxes."
-                    )
-                ) {
-                    Stepper(
-                        value: $dailyGoal,
-                        in: 5...200,
-                        step: 5,
-                        label: {
-                            HStack {
-                                Image(systemName: "target")
-                                    .foregroundStyle(.pink)
-                                Text("Daily goal")
-                                Spacer()
-                                Text("\(dailyGoal)")
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    )
 
-                    Toggle(isOn: $studyReminders) {
-                        HStack {
-                            Image(systemName: "bell.badge")
-                                .foregroundStyle(.orange)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Study reminders")
-                                Text("Get a nudge to review cards")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                }
-
-                Section(header: Text("Appearance")) {
-                    Toggle(isOn: $darkMode) {
-                        HStack {
-                            Image(systemName: "moon.fill")
-                                .foregroundStyle(.purple)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Dark Mode")
-                                Text("Use a darker theme for low light")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-
-                    Toggle(isOn: $hapticsEnabled) {
-                        HStack {
-                            Image(systemName: "waveform")
-                                .foregroundStyle(.teal)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Haptics")
-                                Text("Subtle feedback during study")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                }
-
-                Section(
                     header: Text("Notifications"),
                     footer: Text(
                         "You can fine-tune notification settings in iOS Settings > Rekard."
